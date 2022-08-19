@@ -17,6 +17,8 @@ const Navbar = () => {
     const getUserName = async () => {
       try {
         const { email } = await magic.user.getMetadata();
+        const didToken = magic.user.getIdToken();
+
         if (email) {
           setUserName(email);
         }

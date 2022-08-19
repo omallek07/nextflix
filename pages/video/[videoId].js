@@ -4,6 +4,7 @@ import styles from "../../styles/Video.module.css";
 import { useRouter } from "next/router";
 import clsx from "classnames";
 import { getYoutubeVideoById } from "../../lib/videos";
+import Navbar from "../../components/navbar/navbar";
 
 Modal.setAppElement("#__next");
 
@@ -46,6 +47,7 @@ const Video = ({ video }) => {
 
   return (
     <div className={styles.container}>
+      <Navbar />
       <Modal
         isOpen={true}
         onAfterOpen={afterOpenModal}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
@@ -16,24 +16,34 @@ const Login = () => {
     e.preventDefault();
     if (!email) {
       setUserMsg("Enter a valid email address");
+      return;
     }
     setIsLoading(true);
 
-    if (email === "yes") {
-      try {
-        const didToken = await magic.auth.loginWithMagicLink({
-          email,
+    try {
+      const didToken = await magic.auth.loginWithMagicLink({
+        email,
+      });
+      if (didToken) {
+        const response = await fetch("/api/login", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${didToken}`,
+            "Content-Type": "application/json",
+          },
         });
-        if (didToken) {
+
+        const loggedInResponse = await response.json();
+        if (loggedInResponse.done) {
           router.push("/");
+        } else {
+          setIsLoading(false);
+          setUserMsg("Something went wrong logging in");
         }
-      } catch (error) {
-        setUserMsg("Something went wrong logging in");
-        setIsLoading(false);
       }
-    } else {
-      setUserMsg("Something went wrong logging in");
+    } catch (error) {
       setIsLoading(false);
+      setUserMsg("Something went wrong logging in");
     }
   };
 
