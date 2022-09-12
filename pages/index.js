@@ -3,11 +3,20 @@ import styles from "../styles/Home.module.css";
 
 import Navbar from "../components/navbar/navbar";
 import Banner from "../components/banner/banner";
+
 import SectionCards from "../components/card/section-cards";
 
-import { getVideos, getPopularVideos } from "../lib/videos";
+import {
+  getVideos,
+  getPopularVideos,
+  getWatchItAgainVideos,
+} from "../lib/videos";
 
 export async function getServerSideProps() {
+  const userId = "";
+  const token = "";
+
+  const watchItAgainVideos = await getWatchItAgainVideos();
   const disneyVideos = await getVideos("disney trailer");
   const popularVideos = await getPopularVideos();
 
@@ -17,6 +26,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
+      watchItAgainVideos,
       disneyVideos,
       popularVideos,
       travelVideos,
@@ -32,6 +42,7 @@ export default function Home({
   travelVideos,
   actionVideos,
   horrorVideos,
+  watchItAgainVideos,
 }) {
   return (
     <div className={styles.container}>
@@ -40,16 +51,21 @@ export default function Home({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.main}>
-        <Navbar username="Joe" />
+        <Navbar />
         <Banner
-          videoId=""
-          title="Die Hard"
-          subTitle="Winners never lose"
-          imgUrl="/static/diehard.jpeg"
+          videoId="4zH5iYM4wJ0"
+          title="Clifford the red dog"
+          subTitle="A very cute dog"
+          imgUrl="/static/clifford.webp"
         />
         <div className={styles.sectionWrapper}>
           <SectionCards title="Popular" videos={popularVideos} size="large" />
           <SectionCards title="Disney" videos={disneyVideos} size="medium" />
+          <SectionCards
+            title="Watch It Again"
+            videos={watchItAgainVideos}
+            size="small"
+          />
           <SectionCards title="Travel" videos={travelVideos} size="small" />
           <SectionCards title="Action" videos={actionVideos} size="medium" />
           <SectionCards title="Horror" videos={horrorVideos} size="small" />

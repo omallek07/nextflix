@@ -11,7 +11,7 @@
   z-index: 10;
 }
 
-.leftContent {
+.left {
   display: flex;
   justify-content: flex-start;
   padding-left: 4rem /* 64px */;
@@ -102,7 +102,7 @@
 }
 
 @media (min-width: 768px) {
-  .leftContent {
+  .left {
     width: 40%;
   }
 }
