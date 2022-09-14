@@ -12,11 +12,12 @@ import {
   getWatchItAgainVideos,
 } from "../lib/videos";
 
-export async function getServerSideProps() {
-  const userId = "";
-  const token = "";
+import useRedirectUser from "../utils/redirectUser";
 
-  const watchItAgainVideos = await getWatchItAgainVideos();
+export async function getServerSideProps(context) {
+  const { userId, token } = await useRedirectUser(context);
+
+  const watchItAgainVideos = await getWatchItAgainVideos(userId, token);
   const disneyVideos = await getVideos("disney trailer");
   const popularVideos = await getPopularVideos();
 
@@ -42,7 +43,7 @@ export default function Home({
   travelVideos,
   actionVideos,
   horrorVideos,
-  watchItAgainVideos,
+  watchItAgainVideos = [],
 }) {
   return (
     <div className={styles.container}>
