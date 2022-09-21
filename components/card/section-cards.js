@@ -20,7 +20,7 @@ const SectionCards = (props) => {
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>{title}</h2>
-      <div className={clsx(styles.cardWrapper, shouldWrapper && styles.wrap)}>
+      <div className={clsx(styles.cardWrapper, shouldWrap && styles.wrap)}>
         {renderCards}
       </div>
     </section>

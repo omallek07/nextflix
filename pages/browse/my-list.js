@@ -1,5 +1,5 @@
 import Head from "next/head";
-import NavBar from "../../components/nav/navbar";
+import NavBar from "../../components/navbar/navbar";
 
 import SectionCards from "../../components/card/section-cards";
 import { redirectUser } from "../../utils/redirectUser";
